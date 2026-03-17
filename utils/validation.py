@@ -8,9 +8,9 @@ def validate_profile_data(first_name: str, last_name: str, student_id: str):
     if not first_name or not last_name or not student_id:
         return "All fields are required."
     if first_name.isspace() or last_name.isspace() or student_id.isspace():
-        return "All fields are required to have a valid input"
+        return "All fields are required."
     if not re.match(r"^[A-Za-z0-9]{8,9}$", student_id):
-        return "Invalid student ID"
+        return "Invalid Student ID"
     return None
 
 

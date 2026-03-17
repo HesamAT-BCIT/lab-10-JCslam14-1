@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import re
 from flask import jsonify, request
 
 
@@ -7,6 +7,10 @@ def validate_profile_data(first_name: str, last_name: str, student_id: str):
     """Validate that required profile fields are present and well-formed."""
     if not first_name or not last_name or not student_id:
         return "All fields are required."
+    if first_name.isspace() or last_name.isspace() or student_id.isspace():
+        return "All fields are required to have a valid input"
+    if not re.match(r"^[A-Za-z0-9]{8,9}$", student_id):
+        return "Invalid student ID"
     return None
 
 

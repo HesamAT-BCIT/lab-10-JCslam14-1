@@ -16,6 +16,9 @@ def validate_profile_data(first_name: str, last_name: str, student_id: str):
 
 def normalize_profile_data(first_name: str, last_name: str, student_id: str):
     """Normalize profile field values (strip whitespace, stringify student_id)."""
+    if not first_name or not last_name or not student_id:
+        return "All fields are required."
+
     return {
         "first_name": first_name.strip() if first_name else "",
         "last_name": last_name.strip() if last_name else "",

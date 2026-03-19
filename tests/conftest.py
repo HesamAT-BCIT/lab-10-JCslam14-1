@@ -23,6 +23,9 @@ def mock_firestore(monkeypatch):
     mock_db.collection.return_value = mock_collection
     mock_collection.document.return_value = mock_doc_ref
     mock_doc_ref.get.return_value = mock_snapshot
+    mock_doc_ref.set = MagicMock()
+    mock_doc_ref.update = MagicMock()
+    mock_doc_ref.delete = MagicMock()
 
     # Default profile response; customize per test when needed.
     mock_snapshot.exists = True
@@ -62,3 +65,14 @@ def mock_firebase_auth(monkeypatch):
     verify_mock = MagicMock(return_value={"uid": "test_user_123"})
     monkeypatch.setattr("decorators.auth.auth.verify_id_token", verify_mock)
     return verify_mock
+
+'''
+def test_invalid_token(client, mock_firebase_auth):
+    mock_firebase_auth.side_effect = Exception("Invalid token")
+
+    response = client.get("/api/profile", headers={
+        "Authorization": "Bearer badtoken"
+    })
+
+    assert response.status_code == 401
+'''
